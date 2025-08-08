@@ -4,8 +4,11 @@ import com.example.library_restapi.dto.BookDto;
 import com.example.library_restapi.entity.Book;
 import com.example.library_restapi.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class BookService {
@@ -13,8 +16,13 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> getAllBooks(){
-        return bookRepository.findAll();
+    public Page<Book> getAllBooks(int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return bookRepository.findAll(pageable);
     }
 
     public Book getBookById(Long id){
