@@ -6,9 +6,10 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class BorrowHistoryDto {
+public class HistoryDto {
+
     private String bookTitle;
     private LocalDate borrowDate;
-    private LocalDate returnDate;
-    private String status; // "RETURNED" or "ACTIVE"
+    private LocalDate dueDate;
+    private Boolean isReturned;
 }

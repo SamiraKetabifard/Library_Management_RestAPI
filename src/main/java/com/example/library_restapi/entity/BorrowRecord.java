@@ -1,4 +1,5 @@
 package com.example.library_restapi.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -14,12 +15,15 @@ public class BorrowRecord {
     private LocalDate borrowDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
+
     private Boolean isReturned;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;

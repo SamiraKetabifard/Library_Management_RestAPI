@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/books")
@@ -49,4 +50,11 @@ public class BookController {
         bookService.deleteBookById(id);
         return ResponseEntity.ok().build();
     }
+    //@PreAuthorize("hasRole('USER')")
+    @GetMapping("/by-author")
+    public ResponseEntity<List<Book>> getBooksByAuthor(
+            @RequestParam String author) {
+        return ResponseEntity.ok(bookService.findByAuthor(author));
+    }
+
 }

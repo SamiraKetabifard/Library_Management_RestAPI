@@ -2,14 +2,15 @@ package com.example.library_restapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class OverdueBookDto {
+public class BorrowRecordDto {
 
+    private Long recordId;
+    private String username;
     private String bookTitle;
-    private String borrowerName;
-    private LocalDate dueDate;
-    private long daysOverdue;
+    private Boolean isReturned;
+
+
 }

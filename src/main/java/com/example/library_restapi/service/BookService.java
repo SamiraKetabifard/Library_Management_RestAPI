@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
 
@@ -54,4 +56,8 @@ public class BookService {
     public void deleteBookById(Long id){
         bookRepository.deleteById(id);
     }
+    public List<Book> findByAuthor(String authorName) {
+        return bookRepository.findByAuthor(authorName); // or findByAuthorContainingNative
+    }
+
 }

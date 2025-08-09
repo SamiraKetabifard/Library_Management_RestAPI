@@ -1,5 +1,7 @@
 package com.example.library_restapi.service;
 
+import com.example.library_restapi.dto.BorrowRecordDto;
+import com.example.library_restapi.dto.HistoryDto;
 import com.example.library_restapi.entity.Book;
 import com.example.library_restapi.entity.BorrowRecord;
 import com.example.library_restapi.entity.User;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class BorrowRecordService {
@@ -68,4 +71,15 @@ public class BorrowRecordService {
 
         return borrowRecordRepository.save(borrowRecord);
     }
+    public List<BorrowRecordDto> getAllBorrowRecordsWithDetails() {
+        return borrowRecordRepository.findAllBorrowRecordsAsDto();
+    }
+    public List<HistoryDto> getBorrowHistory() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return borrowRecordRepository.findUserHistory(user.getId());
+    }
+
 }
