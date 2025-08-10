@@ -1,5 +1,6 @@
 package com.example.library_restapi.controller;
 
+import com.example.library_restapi.dto.BookCategoryCountDto;
 import com.example.library_restapi.dto.BookDto;
 import com.example.library_restapi.entity.Book;
 import com.example.library_restapi.service.BookService;
@@ -40,8 +41,9 @@ public class BookController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto){
-        return ResponseEntity.ok(bookService.updateBook(id,bookDto));
+    public ResponseEntity<String> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
+        bookService.updateBook(id, bookDto);
+        return ResponseEntity.ok("Book with ID " + id + " has been updated successfully");
     }
 
     @DeleteMapping("/deletebook/{id}")
@@ -56,5 +58,14 @@ public class BookController {
             @RequestParam String author) {
         return ResponseEntity.ok(bookService.findByAuthor(author));
     }
-
+    // Highly rated books
+    @GetMapping("/highly-rated")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Book>> getHighlyRatedBooks() {
+        return ResponseEntity.ok(bookService.getHighlyRatedBooks());
+    }
+    @GetMapping("/category-stats")
+    public ResponseEntity<List<BookCategoryCountDto>> getBookCountByCategory() {
+        return ResponseEntity.ok(bookService.getBookCountByCategory());
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.library_restapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -17,7 +18,11 @@ public class Book {
     private Integer quantity;
     private Boolean isAvailable;
 
-
     @OneToMany(mappedBy = "book")
+    @JsonIgnore
     private List<BookRating> ratings;
+
+    @Enumerated(EnumType.STRING)
+    private BookCategory bookCategory;
+
 }

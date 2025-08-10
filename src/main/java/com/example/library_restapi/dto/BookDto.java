@@ -10,4 +10,6 @@ public class BookDto {
     private String isbnNumber;
     private Integer quantity;
     private Boolean isAvailable;
+    private String category;
+
 }
