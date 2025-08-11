@@ -61,6 +61,7 @@ A secure Spring Boot REST API for managing library operations with JWT authentic
         POST /rating - Rate a book (user role)
 
     Borrow Endpoints:
+  
         POST /borrowRecords/borrowBook/{bookId} - Borrow a book
 
     POST /borrowRecords/returnBook/{borrowRecordId} - Return a book
