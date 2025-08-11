@@ -64,8 +64,8 @@ A secure Spring Boot REST API for managing library operations with JWT authentic
   
         POST /borrowRecords/borrowBook/{bookId} - Borrow a book
 
-    POST /borrowRecords/returnBook/{borrowRecordId} - Return a book
+        POST /borrowRecords/returnBook/{borrowRecordId} - Return a book
 
-    GET /borrowRecords/all - Get all borrow records (admin only)
+        GET /borrowRecords/all - Get all borrow records (admin only)
 
     GET /borrowRecords/my-borrowed-books - Get user's borrowed books
