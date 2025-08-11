@@ -18,15 +18,14 @@ A secure Spring Boot REST API for managing library operations with JWT authentic
 - 🔄 Borrowing System
   - Borrow/return books
   - Track borrowing history
-  - Prevent duplicate borrows
-
+  
 - ⭐ Rating System
   - Users can rate borrowed books (1-5 stars)
   - View highly-rated books (ADMIN only)
   - 
   - 🛠️ Tech Stack
 - **Backend**: Spring Boot, Spring Security, JPA/Hibernate
-- **Database**: (Specify: MySQL)
+- **Database**: (MySQL)
 - **Authentication**: JWT tokens
 - **Testing**: JUnit 5, Mockito, MockMvc
 
