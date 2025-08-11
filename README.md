@@ -68,4 +68,7 @@ A secure Spring Boot REST API for managing library operations with JWT authentic
 
         GET /borrowRecords/all - Get all borrow records (admin only)
 
-    GET /borrowRecords/my-borrowed-books - Get user's borrowed books
+        GET /borrowRecords/my-borrowed-books - Get user's borrowed books
+
+
+
