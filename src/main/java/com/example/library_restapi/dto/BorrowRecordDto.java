@@ -11,6 +11,4 @@ public class BorrowRecordDto {
     private String username;
     private String bookTitle;
     private Boolean isReturned;
-
-
 }

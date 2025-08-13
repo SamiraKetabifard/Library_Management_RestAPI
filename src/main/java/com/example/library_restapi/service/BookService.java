@@ -78,7 +78,7 @@ public class BookService {
         bookRepository.deleteById(id);
     }
     public List<Book> findByAuthor(String authorName) {
-        return bookRepository.findByAuthor(authorName); // or findByAuthorContainingNative
+        return bookRepository.findByAuthor(authorName);
     }
     public List<Book> getHighlyRatedBooks() {
         return bookRepository.findHighlyRatedBooks();
