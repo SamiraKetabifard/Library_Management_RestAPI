@@ -12,13 +12,12 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByAuthor(String author);
 
     //Native query to find books with average rating > 4
-    @Query(value = """
-            SELECT b.* FROM book b
-            JOIN book_rating r ON b.id = r.book_id
-            GROUP BY b.id
-            HAVING AVG(r.rate) > 4
-            """,
-            nativeQuery = true)
+    @Query(value =
+            "SELECT b.* FROM book b"+
+            "JOIN book_rating r ON b.id = r.book_id"+
+            "GROUP BY b.id"+
+            "HAVING AVG(r.rate) > 4"
+            , nativeQuery = true)
     List<Book> findHighlyRatedBooks();
 
     //Native query to count books by category
