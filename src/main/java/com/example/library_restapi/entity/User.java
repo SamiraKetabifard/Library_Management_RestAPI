@@ -22,6 +22,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
+    //stores user roles in a separate table (user_roles)
+    //since roles are just Strings,use @ElementCollection instead of creating a Role entity
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
 

@@ -12,10 +12,10 @@ public class BorrowRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private LocalDate borrowDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
-
     private Boolean isReturned;
 
     @JsonIgnore

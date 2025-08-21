@@ -15,5 +15,4 @@ public class BookDto {
     private Integer quantity;
     private Boolean isAvailable;
     private String category;
-
 }

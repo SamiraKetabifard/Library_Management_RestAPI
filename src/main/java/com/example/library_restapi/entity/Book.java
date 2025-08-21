@@ -18,11 +18,10 @@ public class Book {
     private Integer quantity;
     private Boolean isAvailable;
 
-    @OneToMany(mappedBy = "book")
     @JsonIgnore
+    @OneToMany(mappedBy = "book")
     private List<BookRating> ratings;
 
     @Enumerated(EnumType.STRING)
     private BookCategory bookCategory;
-
 }
