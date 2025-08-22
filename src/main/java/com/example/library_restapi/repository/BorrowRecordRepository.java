@@ -11,12 +11,14 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, Long> {
-  //JPQL
+
+  //JPQL-retrieve all borrow records and map them directly to BorrowRecordDto
   @Query("SELECT new com.example.library_restapi.dto.BorrowRecordDto" +
           "(br.id, u.username, b.title, br.isReturned) " +
           "FROM BorrowRecord br JOIN br.user u JOIN br.book b")
   List<BorrowRecordDto> findAllBorrowRecordsAsDto();
 
+  //JPQL-retrieve history for a specific user and map to HistoryDto
   @Query("SELECT new com.example.library_restapi.dto.HistoryDto" +
           "(b.title, br.borrowDate, br.dueDate, br.isReturned) " +
           "FROM BorrowRecord br JOIN br.book b WHERE br.user.id = :userId")

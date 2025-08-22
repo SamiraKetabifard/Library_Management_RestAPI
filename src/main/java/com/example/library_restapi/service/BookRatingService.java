@@ -34,7 +34,7 @@ public class BookRatingService {
         if (!hasBorrowed) {
             throw new RuntimeException("You haven't borrowed this book");
         }
-        // Check if user has unreturned copy of this book
+        // Check if user has unreturned the book
         boolean hasUnreturned = borrowRecordRepository.existsByUserAndBookAndNotReturned(user.getId(), book.getId());
         if (hasUnreturned) {
             throw new RuntimeException("You must return the book before rating it");

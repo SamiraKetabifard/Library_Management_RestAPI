@@ -21,7 +21,25 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Page<Book> getAllBooks(int page, int size, String sortBy, String direction) {
+    public Book addBook(BookDto bookDto){
+        Book book = new Book();
+        book.setTitle(bookDto.getTitle());
+        book.setAuthor(bookDto.getAuthor());
+        book.setIsbnNumber(bookDto.getIsbnNumber());
+        book.setQuantity(bookDto.getQuantity());
+        book.setIsAvailable(bookDto.getIsAvailable());
+        //Handle enum conversion
+        if (bookDto.getCategory() != null){
+            try {
+                book.setBookCategory(BookCategory.valueOf(bookDto.getCategory().toUpperCase()));
+            } catch (IllegalArgumentException e){
+                throw new RuntimeException("Invalid category,Valid values are:"
+                        + Arrays.toString(BookCategory.values()));
+            }
+        }
+        return bookRepository.save(book);
+    }
+    public Page<Book> getAllBooks(int page, int size, String sortBy, String direction){
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
@@ -33,26 +51,6 @@ public class BookService {
     public Book getBookById(Long id){
         return bookRepository.findById(id)
                 .orElseThrow(() ->new RuntimeException("Book Not Found"));
-    }
-    public Book addBook(BookDto bookDto) {
-        Book book = new Book();
-        book.setTitle(bookDto.getTitle());
-        book.setAuthor(bookDto.getAuthor());
-        book.setIsbnNumber(bookDto.getIsbnNumber());
-        book.setQuantity(bookDto.getQuantity());
-        book.setIsAvailable(bookDto.getIsAvailable());
-
-        // Handle enum conversion
-        if (bookDto.getCategory() != null) {
-            try {
-                book.setBookCategory(BookCategory.valueOf(bookDto.getCategory().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Invalid category. Valid values are: "
-                        + Arrays.toString(BookCategory.values()));
-            }
-        }
-
-        return bookRepository.save(book);
     }
     public void updateBook(Long id, BookDto bookDto) {
         Book oldBook = bookRepository.findById(id)
@@ -76,13 +74,13 @@ public class BookService {
     public void deleteBookById(Long id){
         bookRepository.deleteById(id);
     }
-    public List<Book> findByAuthor(String authorName) {
+    public List<Book> findByAuthor(String authorName){
         return bookRepository.findByAuthor(authorName);
     }
-    public List<Book> getHighlyRatedBooks() {
+    public List<Book> getHighlyRatedBooks(){
         return bookRepository.findHighlyRatedBooks();
     }
-    public List<BookCategoryCountDto> getBookCountByCategory() {
+    public List<BookCategoryCountDto> getBookCountByCategory(){
         List<Object[]> results = bookRepository.countBooksByCategory();
         return results.stream()
                 .map(row -> new BookCategoryCountDto(
