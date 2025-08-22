@@ -21,7 +21,6 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-
     public Page<Book> getAllBooks(int page, int size, String sortBy, String direction) {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
                 ? Sort.by(sortBy).ascending()

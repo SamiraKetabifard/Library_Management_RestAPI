@@ -22,7 +22,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     //Native query to count books by category
     @Query(value = """
-            SELECT book_category as category, COUNT(*) as count 
+            SELECT book_category as category,
+            COUNT(*) as count 
             FROM book 
             GROUP BY book_category
             """,
