@@ -84,8 +84,8 @@ public class BookService {
         List<Object[]> results = bookRepository.countBooksByCategory();
         return results.stream()
                 .map(row -> new BookCategoryCountDto(
-                        (String) row[0],  // category
-                        ((Number) row[1]).longValue()  // count
+                        (String) row[0],  //category
+                        ((Number) row[1]).longValue()  //count
                 ))
                 .collect(Collectors.toList());
     }

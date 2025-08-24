@@ -20,14 +20,8 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    public String extractUsername(String jwtToken){
-        return extractClaim(jwtToken, Claims::getSubject);
-    }
-
-    private <T> T extractClaim(String jwtToken, Function<Claims, T> claimResolver){
-        final Claims claims = extractAllClaims(jwtToken);
-
-        return claimResolver.apply(claims);
+    public SecretKey getSignInKey(){
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     private Claims extractAllClaims(String jwtToken){
@@ -38,11 +32,9 @@ public class JwtService {
                 .getPayload();
     }
 
-    public SecretKey getSignInKey(){
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
-    }
-    public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+    private <T> T extractClaim(String jwtToken, Function<Claims, T> claimResolver){
+        final Claims claims = extractAllClaims(jwtToken);
+        return claimResolver.apply(claims);
     }
 
     public String generateToken(Map<String,Object> extractClaims, UserDetails userDetails){
@@ -55,17 +47,24 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String jwtToken, UserDetails userDetails){
-        final String username = extractUsername(jwtToken);
+    public String generateToken(UserDetails userDetails){
+        return generateToken(new HashMap<>(), userDetails);
+    }
 
-        return (userDetails.getUsername().equals(username) && !isTokenExpired(jwtToken));
+    public String extractUsername(String jwtToken){
+        return extractClaim(jwtToken, Claims::getSubject);
+    }
+
+    private Date extractExpiration(String jwtToken){
+        return extractClaim(jwtToken,Claims::getExpiration);
     }
 
     private boolean isTokenExpired(String jwtToken){
         return extractExpiration(jwtToken).before(new Date());
     }
-
-    private Date extractExpiration(String jwtToken){
-        return extractClaim(jwtToken,Claims::getExpiration);
+    //validate token
+    public boolean isTokenValid(String jwtToken, UserDetails userDetails){
+        final String username = extractUsername(jwtToken);
+        return (userDetails.getUsername().equals(username) && !isTokenExpired(jwtToken));
     }
 }

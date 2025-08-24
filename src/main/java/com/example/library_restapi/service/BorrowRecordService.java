@@ -32,7 +32,6 @@ public class BorrowRecordService {
         if (book.getQuantity() <= 0 || !book.getIsAvailable()) {
             throw new RuntimeException("Book is not available");
         }
-
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -48,7 +47,6 @@ public class BorrowRecordService {
         if (book.getQuantity() == 0) {
             book.setIsAvailable(false);
         }
-
         bookRepository.save(book);
         return borrowRecordRepository.save(borrowRecord);
     }
@@ -58,9 +56,8 @@ public class BorrowRecordService {
                 .orElseThrow(() -> new RuntimeException("borrow Record is not found"));
 
         if (borrowRecord.getIsReturned()) {
-            throw new RuntimeException("Book is Already returned");
+            throw new RuntimeException("Book is already returned");
         }
-
         Book book = borrowRecord.getBook();
         book.setQuantity(book.getQuantity() + 1);
         book.setIsAvailable(true);
@@ -81,5 +78,4 @@ public class BorrowRecordService {
 
         return borrowRecordRepository.findUserHistory(user.getId());
     }
-
 }
