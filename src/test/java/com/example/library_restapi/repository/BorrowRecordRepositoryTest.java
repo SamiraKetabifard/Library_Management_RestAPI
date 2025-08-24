@@ -44,7 +44,7 @@ class BorrowRecordRepositoryTest {
             record.setIsReturned(false);
             entityManager.persist(record);
 
-            //  Explicitly flush and clear persistence context
+            //Explicitly flush and clear persistence context
             entityManager.flush();
             entityManager.clear();
 

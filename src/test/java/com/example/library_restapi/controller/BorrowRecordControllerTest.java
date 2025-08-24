@@ -34,7 +34,6 @@ class BorrowRecordControllerTest {
     @MockitoBean
     private BorrowRecordService borrowRecordService;
 
-    // Add these required security mocks
     @MockitoBean
     private JwtService jwtService;
 

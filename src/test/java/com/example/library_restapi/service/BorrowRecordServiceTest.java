@@ -106,8 +106,7 @@ class BorrowRecordServiceTest {
         when(borrowRecordRepository.findUserHistory(1L)).thenReturn(List.of(dto));
 
         SecurityContextHolder.getContext().setAuthentication(
-                new UsernamePasswordAuthenticationToken("samira", null)
-        );
+                new UsernamePasswordAuthenticationToken("samira", null));
 
         List<HistoryDto> result = borrowRecordService.getBorrowHistory();
 
