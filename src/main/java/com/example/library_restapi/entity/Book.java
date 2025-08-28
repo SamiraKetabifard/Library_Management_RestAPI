@@ -12,12 +12,13 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String author;
     private String isbnNumber;
     private Integer quantity;
     private Boolean isAvailable;
-
+    //bidirectional
     @JsonIgnore
     @OneToMany(mappedBy = "book")
     private List<BookRating> ratings;

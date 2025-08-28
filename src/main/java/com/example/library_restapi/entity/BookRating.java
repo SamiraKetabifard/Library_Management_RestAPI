@@ -20,10 +20,12 @@ public class BookRating {
     @Min(1) @Max(5)
     private Integer rate;
 
+    //bidirectional
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
+    //uni
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

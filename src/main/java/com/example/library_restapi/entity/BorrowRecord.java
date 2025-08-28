@@ -17,12 +17,12 @@ public class BorrowRecord {
     private LocalDate dueDate;
     private LocalDate returnDate;
     private Boolean isReturned;
-
+    //uni
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
+    //uni
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "book_id")
