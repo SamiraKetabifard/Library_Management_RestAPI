@@ -43,7 +43,7 @@ public class AuthenticationService {
 
     public User registerAdminUser(RegisterRequestDto registerRequestDto){
         if (userRepository.findByUsername(registerRequestDto.getUsername()).isPresent()){
-            throw new RuntimeException("User Already registered");
+            throw new RuntimeException("Admin Already registered");
         }
         Set<String> roles = new HashSet<String>();
         roles.add("ROLE_ADMIN");
@@ -61,8 +61,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequestDto.getUsername(),
-                        loginRequestDto.getPassword())
-        );
+                        loginRequestDto.getPassword()));
 
         User user = userRepository.findByUsername(loginRequestDto.getUsername())
                 .orElseThrow(() ->new RuntimeException("user not found"));
