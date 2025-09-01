@@ -18,6 +18,7 @@ public class Book {
     private String isbnNumber;
     private Integer quantity;
     private Boolean isAvailable;
+
     //bidirectional
     @JsonIgnore
     @OneToMany(mappedBy = "book")

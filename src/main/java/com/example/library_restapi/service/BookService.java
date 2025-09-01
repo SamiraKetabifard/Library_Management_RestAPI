@@ -47,7 +47,6 @@ public class BookService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return bookRepository.findAll(pageable);
     }
-
     public Book getBookById(Long id){
         return bookRepository.findById(id)
                 .orElseThrow(() ->new RuntimeException("Book Not Found"));
@@ -83,8 +82,8 @@ public class BookService {
     public List<BookCategoryCountDto> getBookCountByCategory(){
         List<Object[]> results = bookRepository.countBooksByCategory();
         return results.stream()
-                .map(row -> new BookCategoryCountDto(
-                        (String) row[0],  //category
+                .map(row -> new BookCategoryCountDto
+                        ((String) row[0],  //category
                         ((Number) row[1]).longValue()  //count
                 ))
                 .collect(Collectors.toList());

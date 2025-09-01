@@ -50,7 +50,6 @@ public class BorrowRecordService {
         bookRepository.save(book);
         return borrowRecordRepository.save(borrowRecord);
     }
-
     public BorrowRecord returnTheBook(Long borrowRecordId) {
         BorrowRecord borrowRecord = borrowRecordRepository.findById(borrowRecordId)
                 .orElseThrow(() -> new RuntimeException("borrow Record is not found"));

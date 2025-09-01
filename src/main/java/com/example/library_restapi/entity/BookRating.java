@@ -20,7 +20,7 @@ public class BookRating {
     @Min(1) @Max(5)
     private Integer rate;
 
-    //bidirectional
+    //biDirectional(ownSide)
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;

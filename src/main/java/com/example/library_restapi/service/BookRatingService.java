@@ -47,7 +47,6 @@ public class BookRatingService {
         rating.setRate(ratingDto.getRating());
         rating.setBook(book);
         rating.setUser(user);
-
         ratingRepository.save(rating);
         return "Book rated successfully";
     }

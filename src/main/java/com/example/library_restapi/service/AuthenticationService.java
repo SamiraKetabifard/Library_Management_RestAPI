@@ -46,7 +46,6 @@ public class AuthenticationService {
             throw new RuntimeException("User Already registered");
         }
         Set<String> roles = new HashSet<String>();
-        //roles.add("ROLE_USER");
         roles.add("ROLE_ADMIN");
 
         User admin = new User();
