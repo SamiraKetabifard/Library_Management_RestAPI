@@ -27,25 +27,21 @@ public class BookController {
 
         return ResponseEntity.ok(bookService.getAllBooks(page, size, sortBy, direction));
     }
-
     @GetMapping("/getbookbyid/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id){
         return ResponseEntity.ok(bookService.getBookById(id));
     }
-
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Book> addBook(@RequestBody BookDto bookDto){
         return ResponseEntity.ok(bookService.addBook(bookDto));
     }
-
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
         bookService.updateBook(id, bookDto);
         return ResponseEntity.ok("Book with ID " + id + " has been updated successfully");
     }
-
     @DeleteMapping("/deletebook/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id){

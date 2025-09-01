@@ -59,7 +59,7 @@ class SecurityConfigTest {
     private BorrowRecordService borrowRecordService;
 
     @Test
-    void unauthenticatedAccessToAuthEndpoints_Allowed() throws Exception {
+    void authenticatedAccessToAuthEndpoints_Allowed() throws Exception {
         // For register endpoint
         mockMvc.perform(post("/auth/registeruser")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -96,14 +96,12 @@ class SecurityConfigTest {
                 .andExpect(jsonPath("$[0].title").value("AI"))
                 .andExpect(jsonPath("$[0].author").value("Jac"));
     }
-
     @Test
     @WithMockUser(roles = "USER")
     void userAccessToAdminEndpoints_Denied() throws Exception {
         mockMvc.perform(get("/books/highly-rated"))
                 .andExpect(status().isForbidden());
     }
-
     @Test
     @WithMockUser(roles = "ADMIN")
     void adminAccessToAdminEndpoints_Allowed() throws Exception {
@@ -114,7 +112,7 @@ class SecurityConfigTest {
         book.setIsbnNumber("1");
         book.setQuantity(1);
         book.setIsAvailable(true);
-
+        //act
         when(bookService.getHighlyRatedBooks())
                 .thenReturn(List.of(book));
 

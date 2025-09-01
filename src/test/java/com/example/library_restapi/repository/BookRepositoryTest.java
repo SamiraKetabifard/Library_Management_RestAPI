@@ -22,7 +22,7 @@ class BookRepositoryTest {
     private TestEntityManager entityManager;
 
     @Test
-    void findByAuthor_ReturnsBooks() {
+    void findByAuthor_ReturnBooks() {
 
         Book book1 = new Book();
         book1.setTitle("Book 1");
