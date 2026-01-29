@@ -4,11 +4,7 @@ import com.example.library_restapi.config.SecurityConfig;
 import com.example.library_restapi.dto.BorrowRecordDto;
 import com.example.library_restapi.dto.HistoryDto;
 import com.example.library_restapi.entity.BorrowRecord;
-import com.example.library_restapi.jwt.JwtService;
-import com.example.library_restapi.repository.UserRepository;
 import com.example.library_restapi.service.BorrowRecordService;
-import com.example.library_restapi.service.CustomUserDetailsService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,18 +29,6 @@ class BorrowRecordControllerTest {
 
     @MockitoBean
     private BorrowRecordService borrowRecordService;
-
-    @MockitoBean
-    private JwtService jwtService;
-
-    @MockitoBean
-    private UserRepository userRepository;
-
-    @MockitoBean
-    private CustomUserDetailsService customUserDetailsService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     @WithMockUser

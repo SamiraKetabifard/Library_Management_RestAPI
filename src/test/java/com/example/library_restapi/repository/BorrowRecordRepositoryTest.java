@@ -43,12 +43,12 @@ class BorrowRecordRepositoryTest {
             record.setDueDate(LocalDate.now().plusDays(14));
             record.setIsReturned(false);
             entityManager.persist(record);
-
             //Explicitly flush and clear persistence context
             entityManager.flush();
             entityManager.clear();
-
+            //act
             List<BorrowRecordDto> result = borrowRecordRepository.findAllBorrowRecordsAsDto();
+            //assert
             assertEquals(1, result.size());
             assertEquals("hamin", result.get(0).getUsername());
             assertEquals("ai2", result.get(0).getBookTitle());

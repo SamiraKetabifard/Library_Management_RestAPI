@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Book {
+public class Book{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Book {
     private Integer quantity;
     private Boolean isAvailable;
 
-    //bidirectional
+    //Bidirectional
     @JsonIgnore
     @OneToMany(mappedBy = "book")
     private List<BookRating> ratings;

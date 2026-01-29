@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BookRepositoryTest {
+
     @Autowired
     private BookRepository bookRepository;
 
@@ -48,4 +49,4 @@ class BookRepositoryTest {
         List<Book> result = bookRepository.findByAuthor("hafez");
         assertEquals(2, result.size());
     }
-}
+    }

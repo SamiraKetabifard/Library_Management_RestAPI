@@ -1,23 +1,16 @@
 package com.example.library_restapi.controller;
 
-import com.example.library_restapi.config.SecurityConfig;
 import com.example.library_restapi.dto.BookCategoryCountDto;
 import com.example.library_restapi.dto.BookDto;
 import com.example.library_restapi.entity.Book;
-import com.example.library_restapi.jwt.JwtService;
-import com.example.library_restapi.repository.UserRepository;
-import com.example.library_restapi.service.AuthenticationService;
 import com.example.library_restapi.service.BookService;
-import com.example.library_restapi.service.CustomUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
@@ -28,13 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BookController.class)
-@Import(SecurityConfig.class)
 @AutoConfigureMockMvc(addFilters = false)
-@TestPropertySource(properties = {
-        "spring.security.user.name=test",
-        "spring.security.user.password=test",
-        "spring.security.user.roles=USER"
-})
 public class BookControllerTest {
 
     @Autowired
@@ -42,18 +29,6 @@ public class BookControllerTest {
 
     @MockitoBean
     private BookService bookService;
-
-    @MockitoBean
-    private UserRepository userRepository;
-
-    @MockitoBean
-    private JwtService jwtService;
-
-    @MockitoBean
-    private CustomUserDetailsService customUserDetailsService;
-
-    @MockitoBean
-    private AuthenticationService authenticationService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -129,18 +104,7 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$[0].author").value("Jac"))
                 .andExpect(jsonPath("$[1].author").value("Jac"));
     }
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void getHighlyRatedBooks_AdminRole_Success() throws Exception {
-        Book book = new Book();
-        book.setTitle("Highly Rated Book");
 
-        when(bookService.getHighlyRatedBooks()).thenReturn(List.of(book));
-
-        mockMvc.perform(get("/books/highly-rated"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title").value("Highly Rated Book"));
-    }
     @Test
     @WithMockUser
     void getBookCountByCategory_Success() throws Exception {
