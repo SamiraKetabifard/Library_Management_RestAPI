@@ -101,16 +101,6 @@ class BookServiceTest {
     }
 
     @Test
-    void getHighlyRatedBooks_ReturnsFilteredBooks() {
-        Book book = new Book();
-        when(bookRepository.findHighlyRatedBooks()).thenReturn(List.of(book));
-
-        List<Book> result = bookService.getHighlyRatedBooks();
-
-        assertEquals(1, result.size());
-    }
-
-    @Test
     void getBookCountByCategory_ReturnsStats() {
         Object[] stat1 = new Object[]{"SCIENCE", 3L};
         Object[] stat2 = new Object[]{"LITERATURE", 2L};

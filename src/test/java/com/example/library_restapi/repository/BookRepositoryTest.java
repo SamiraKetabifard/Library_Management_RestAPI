@@ -2,6 +2,7 @@ package com.example.library_restapi.repository;
 
 import com.example.library_restapi.entity.Book;
 import com.example.library_restapi.entity.BookCategory;
+import com.example.library_restapi.entity.BookRating;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -49,4 +50,26 @@ class BookRepositoryTest {
         List<Book> result = bookRepository.findByAuthor("hafez");
         assertEquals(2, result.size());
     }
+
+    @Test
+    void findHighlyRatedBooks_ReturnsOnlyBooksWithAvgRateGreaterThanFour() {
+        // given
+        Book book = new Book();
+        book.setTitle("DDD");
+        entityManager.persist(book);
+
+        BookRating r1 = new BookRating(null, 5, book, null);
+        BookRating r2 = new BookRating(null, 5, book, null);
+
+        entityManager.persist(r1);
+        entityManager.persist(r2);
+        entityManager.flush();
+
+        // when
+        List<Book> result = bookRepository.findHighlyRatedBooks();
+
+        // then
+        assertEquals(1, result.size());
+        assertEquals(book.getId(), result.get(0).getId());
     }
+}
