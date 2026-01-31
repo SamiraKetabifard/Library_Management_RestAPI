@@ -4,6 +4,8 @@ import com.example.library_restapi.config.SecurityConfig;
 import com.example.library_restapi.dto.BorrowRecordDto;
 import com.example.library_restapi.dto.HistoryDto;
 import com.example.library_restapi.entity.BorrowRecord;
+import com.example.library_restapi.jwt.JwtAuthFilter;
+import com.example.library_restapi.jwt.JwtService;
 import com.example.library_restapi.service.BorrowRecordService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BorrowRecordController.class)
-@Import(SecurityConfig.class)
 @AutoConfigureMockMvc(addFilters = false)
 class BorrowRecordControllerTest {
 
@@ -29,6 +30,12 @@ class BorrowRecordControllerTest {
 
     @MockitoBean
     private BorrowRecordService borrowRecordService;
+
+    @MockitoBean
+    private JwtService jwtService;
+
+    @MockitoBean
+    private JwtAuthFilter jwtAuthFilter;
 
     @Test
     @WithMockUser

@@ -1,6 +1,8 @@
 package com.example.library_restapi.controller;
 
 import com.example.library_restapi.dto.RatingDto;
+import com.example.library_restapi.jwt.JwtAuthFilter;
+import com.example.library_restapi.jwt.JwtService;
 import com.example.library_restapi.service.BookRatingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -18,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BookRatingController.class)
-//@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc(addFilters = false)
 class BookRatingControllerTest {
 
     @Autowired
@@ -27,6 +29,11 @@ class BookRatingControllerTest {
     @MockitoBean
     private BookRatingService bookRatingService;
 
+    @MockitoBean
+    private JwtService jwtService;
+
+    @MockitoBean
+    private JwtAuthFilter jwtAuthFilter;
     @Autowired
     private ObjectMapper objectMapper;
 
