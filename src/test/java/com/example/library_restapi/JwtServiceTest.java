@@ -120,12 +120,19 @@ class JwtServiceTest {
         // Arrange
         String token = jwtService.generateToken(userDetails);
 
-        Method isTokenExpiredMethod = JwtService.class
+        // Act
+        boolean isTokenExpired= ReflectionTestUtils.invokeMethod(
+                jwtService,
+                "isTokenExpired",
+                token);
+        // Assert
+        assertFalse(isTokenExpired);
+       /* Method isTokenExpiredMethod = JwtService.class
                 .getDeclaredMethod("isTokenExpired", String.class);
         isTokenExpiredMethod.setAccessible(true);
         // Act
         boolean isExpired = (boolean) isTokenExpiredMethod.invoke(jwtService, token);
         // Assert
-        assertFalse(isExpired);
+        assertFalse(isExpired);*/
     }
 }
